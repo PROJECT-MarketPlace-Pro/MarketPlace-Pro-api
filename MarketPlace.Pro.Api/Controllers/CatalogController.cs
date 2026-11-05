@@ -24,10 +24,19 @@ namespace MarketPlace.Pro.Api.Controllers
         }
 
 
-[HttpPost]
-public IActionResult Post(Item item)
-{
-    return Created("/catalog/42", item);
+        [HttpGet("{id:int}")]
+        public IActionResult GetItem(int id)
+        {
+            var item = new Item("Shirt", "Ohio State shirt.", "Nike", 29.99m);
+            item.Id = id;
+
+            return Ok(item);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Item item)
+        {
+            return Created("/catalog/42", item);
 }
 
     }
