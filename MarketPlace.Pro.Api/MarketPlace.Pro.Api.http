@@ -13,3 +13,25 @@ Content-Type: application/json
     "brand": "Nike",
     "price": 129.99
 }
+
+
+### POST a new Rating to an Item
+POST http://localhost:5184/catalog/5/ratings
+Content-Type: application/json
+
+{
+    "stars": 5,
+    "userName": "lilly",
+    "review": "Great shirt!"
+}
+
+### PUT an update to an Item
+PUT http://localhost:5184/catalog/5
+Content-Type: application/json
+
+{
+    "name": "Shirt",
+    "description": "Updated Ohio State shirt",
+    "brand": "Nike",
+    "price": 24.99
+}
