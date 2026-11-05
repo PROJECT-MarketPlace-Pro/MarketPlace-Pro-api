@@ -1,6 +1,45 @@
 @MarketPlace.Pro.Api_HostAddress = http://localhost:5184
 
-GET {{MarketPlace.Pro.Api_HostAddress}}/weatherforecast/
+### GET all items
+GET {{MarketPlace.Pro.Api_HostAddress}}/catalog
 Accept: application/json
 
-###
+### GET an Item by id
+GET {{MarketPlace.Pro.Api_HostAddress}}/catalog/5
+Accept: application/json
+
+### POST a new Item to the Catalog
+POST {{MarketPlace.Pro.Api_HostAddress}}/catalog
+Content-Type: application/json
+
+{
+    "name": "Shoes",
+    "description": "Ohio State shoes",
+    "brand": "Nike",
+    "price": 129.99
+}
+
+### POST a new Rating to an Item
+POST {{MarketPlace.Pro.Api_HostAddress}}/catalog/5/ratings
+Content-Type: application/json
+
+{
+    "stars": 5,
+    "userName": "lilly",
+    "review": "Great shirt!"
+}
+
+### PUT an update to an Item
+PUT {{MarketPlace.Pro.Api_HostAddress}}/catalog/5
+Content-Type: application/json
+
+{
+    "name": "Shirt",
+    "description": "Updated Ohio State shirt",
+    "brand": "Nike",
+    "price": 24.99
+}
+
+### DELETE an Item
+DELETE {{MarketPlace.Pro.Api_HostAddress}}/catalog/5
+
