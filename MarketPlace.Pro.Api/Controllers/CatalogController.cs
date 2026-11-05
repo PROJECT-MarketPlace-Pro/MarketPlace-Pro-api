@@ -22,6 +22,14 @@ namespace MarketPlace.Pro.Api.Controllers
             return Ok(items);
 
         }
+
+
+[HttpPost]
+public IActionResult Post(Item item)
+{
+    return Created("/catalog/42", item);
+}
+
     }
 }
 
