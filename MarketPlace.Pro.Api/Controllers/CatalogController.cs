@@ -22,6 +22,17 @@ namespace MarketPlace.Pro.Api.Controllers
             return Ok(items);
 
         }
+
+
+        [HttpGet("{id:int}")]
+public IActionResult GetItem(int id)
+{
+    var item = new Item("Shirt", "Ohio State shirt.", "Nike", 29.99m);
+    item.Id = id;
+
+    return Ok(item);
+}
+
     }
 }
 
