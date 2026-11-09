@@ -1,0 +1,29 @@
+### GET all items
+GET http://localhost:5184/catalog
+
+### GET item by id
+GET http://localhost:5184/catalog/1
+
+### GET an id that doesn't exist (expect 404)
+GET http://localhost:5184/catalog/99
+
+### POST a new item
+POST http://localhost:5184/catalog
+Content-Type: application/json
+
+{
+  "name": "Shoes",
+  "description": "Running Shoes",
+  "brand": "Nike",
+  "price": 109.99
+}
+
+### POST a rating to item 1
+POST http://localhost:5184/catalog/1/ratings
+Content-Type: application/json
+
+{
+  "stars": 5,
+  "userName": "dmmal",
+  "review": "Great shirt"
+}

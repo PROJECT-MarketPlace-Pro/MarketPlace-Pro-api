@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using MarketPlace.Pro.Data;
 
 namespace jet.piranha.Api
 {
@@ -20,6 +22,9 @@ namespace jet.piranha.Api
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddDbContext<StoreContext>(options =>
+        options.UseSqlite("Data Source=../Registrar.sqlite",
+            b => b.MigrationsAssembly("MarketPlace.Pro.Api")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
