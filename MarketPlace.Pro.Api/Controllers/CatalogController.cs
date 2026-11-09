@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using MarketPlace.Pro.Domain.Catalog;
 using MarketPlace.Pro.Data;
@@ -55,18 +56,45 @@ namespace MarketPlace.Pro.Api.Controllers
             item.AddRating(rating);
             _db.SaveChanges();
             return Ok(item);
-        }
-                [HttpPut("{id:int}")]
+        } 
+        [HttpPut("{id:int}")]
         public IActionResult Put(int id, Item item)
         {
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
+
+            var existingItem = _db.Items.Find(id);
+            if (existingItem == null)
+            {
+                return NotFound();
+            }
+
+            _db.Entry(existingItem).CurrentValues.SetValues(item);
+            _db.SaveChanges();
+
             return NoContent();
         }
+
+
         
-                [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            return NoContent();
-        }
+                
+[HttpDelete("{id:int}")]
+public IActionResult Delete(int id)
+{
+    var item = _db.Items.Find(id);
+
+    if (item == null)
+    {
+        return NotFound();
+    }
+
+    _db.Items.Remove(item);
+    _db.SaveChanges();
+
+    return NoContent();
+}
 
         
 
