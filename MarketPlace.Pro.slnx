@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/MarketPlace-Pro.Domain.Tests/MarketPlace-Pro.Domain.Tests.csproj" />
+  </Folder>
   <Project Path="MarketPlace.Pro.Api/MarketPlace.Pro.Api.csproj" />
   <Project Path="MarketPlace.Pro.Data/MarketPlace.Pro.Data.csproj" />
   <Project Path="MarketPlace.Pro.Domain/MarketPlace.Pro.Domain.csproj" />
