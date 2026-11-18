@@ -18,6 +18,18 @@ namespace jet.piranha.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // CORS: allow the React app to call this API
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
@@ -34,6 +46,8 @@ namespace jet.piranha.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();   // CORS must go between UseRouting and UseAuthorization
 
             app.UseAuthorization();
 
