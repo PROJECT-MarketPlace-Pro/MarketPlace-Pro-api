@@ -1,1 +1,17 @@
 GET http://localhost:5184/catalog
+
+
+### Get an access token from Auth0
+curl --request POST \
+  --url https://dev-ulb1y678nh3kejsi.us.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{
+    "client_id":"318Npcow96w9FysEt29AAX3imQKdFc15",
+    "client_secret":"M7KRJIvmBKBS-LOEs8i1mrY-A9Rkr5yO5eDEpasP6ZJkSRciLxmcm3zQpyx3f-tA",
+    "audience":"https://marketplace-pro-api",
+    "grant_type":"client_credentials"
+  }'
+
+### Test DELETE with Auth0 authorization
+DELETE http://localhost:5184/catalog/1
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InBldGNtUXFyME1HdWotX1luaEpxZiJ9.eyJpc3MiOiJodHRwczovL2Rldi11bGIxeTY3OG5oM2tlanNpLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiIzMThOcGNvdzk2dzlGeXNFdDI5QUFYM2ltUUtkRmMxNUBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9tYXJrZXRwbGFjZS1wcm8tYXBpIiwiaWF0IjoxNzk1Mzg1MDczLCJleHAiOjE3OTU0NzE0NzMsInNjb3BlIjoiZGVsZXRlOmNhdGFsb2ciLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiIzMThOcGNvdzk2dzlGeXNFdDI5QUFYM2ltUUtkRmMxNSJ9.JtO7LsGoDxLrBZwPoFV-S57g_sgi8w_pIkHH68zs4M88BCPIxwe-IF5BrZcg6zFWFAQzbUM4dEb836KIlKAFG6ZI1Ui6YZm5wXVPt5fmBVRp2Mf7HYM_lVgVOlACDl6H83UllM05g1gx_jt9MroYi3mpNKzqNQVL8__jEkN1pyd9FXzZJ6d0KE8dZUz4UshhOEyN9NbP_7cXSQSfVffgTjtPgB__40Rz7um-nTEwANLk65-H57-omJo5lGUNbYoNIKqz6cOzpLLg9b6NMwmZ0BKcNZfndv6y-vi4vEgSg-aJ4UiBj15qnS1FlXUZjp640JLUJYXEtiH4VMb5xiB2nw

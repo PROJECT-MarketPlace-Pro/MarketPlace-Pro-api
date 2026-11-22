@@ -1,10 +1,14 @@
+
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MarketPlace.Pro.Api.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace jet.piranha.Api
+namespace MarketPlace.Pro.Api
 {
     public class Startup
     {
@@ -17,7 +21,36 @@ namespace jet.piranha.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Page 11: Retrieve Auth0 configuration values
+            string authority = Configuration["Auth0:Authority"] ??
+                throw new ArgumentNullException("Auth0:Authority");
+
+            string audience = Configuration["Auth0:Audience"] ??
+                throw new ArgumentNullException("Auth0:Audience");
+
             services.AddControllers();
+
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+
+                options.DefaultChallengeScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.Authority = authority;
+                options.Audience = audience;
+            });
+
+            services.AddAuthorization(options =>
+                {
+                    options.AddPolicy("delete:catalog", policy =>
+                    policy.RequireAuthenticatedUser()
+                     .RequireClaim("scope", "delete:catalog"));
+                });
 
             // CORS: allow the React app to call this API
             services.AddCors(options =>
@@ -40,16 +73,22 @@ namespace jet.piranha.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "jet.piranha.Api v1"));
+                app.UseSwaggerUI(c =>
+                    c.SwaggerEndpoint(
+                        "/swagger/v1/swagger.json",
+                        "MarketPlace.Pro.Api v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors();   // CORS must go between UseRouting and UseAuthorization
+            app.UseCors();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
